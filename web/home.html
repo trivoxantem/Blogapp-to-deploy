@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}All Posts{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Latest Posts</h2>
+{% for post in posts %}
+    <div class="mb-4 p-3 border rounded shadow-sm">
+        <h3><a href="{% url 'post_detail' slug=post.slug %}">{{ post.title }}</a></h3>
+        <small class="text-muted">By {{ post.author }} on {{ post.created_at|date:"F d, Y" }}</small>
+        <p>{{ post.content|truncatewords:25 }}</p>
+        <a href="{% url 'post_detail' slug=post.slug %}" class="btn btn-sm btn-outline-primary">Read More</a>
+    </div>
+{% empty %}
+    <p>No posts yet.</p>
+{% endfor %}
+{% endblock %}
